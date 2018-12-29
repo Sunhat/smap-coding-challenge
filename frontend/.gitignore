@@ -2,3 +2,4 @@ node_modules/
 hot
 package-lock.json
 mix-manifest.json
+app/static/**
