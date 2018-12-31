@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import SuiVue from 'semantic-ui-vue'
 
 // VueRouter routes
 import routes from './routes'
@@ -8,6 +9,7 @@ import routes from './routes'
 import Master from 'pages/Master'
 // Activate in Vue
 Vue.use(VueRouter)
+Vue.use(SuiVue)
 
 // Boot the route
 const router = new VueRouter({
