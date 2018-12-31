@@ -1,13 +1,20 @@
 {% load staticfiles %}
+{% load asset_path %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
         <meta content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+
+        <link rel="stylesheet" type="text/css" href="{% asset_path %}/css/app.css">
+        <link rel="stylesheet" type="text/css" href="{% asset_path %}/css/components.css">
     </head>
     <body>
         <div id="vue"></div>
 
+        <script src="{% asset_path %}/js/manifest.js"></script>
+        <script src="{% asset_path %}/js/vendor.js"></script>
+        <script src="{% asset_path %}/js/app.js"></script>
     </body>
 </html>
