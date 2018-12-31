@@ -13,4 +13,13 @@ mix
 	output: {
 		publicPath: options.config.hmr ? 'http://localhost:8080/' : '/'
 	},
+	resolve: {
+		alias: {
+			scss: path.resolve(__dirname, './src/scss'),
+			js: path.resolve(__dirname, './src/js'),
+			components: path.resolve(__dirname, './src/js/views/components'),
+			pages: path.resolve(__dirname, './src/js/views/pages'),
+			store: path.resolve(__dirname, './src/js/store'),
+		}
+	}
 })
