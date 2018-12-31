@@ -1,0 +1,1 @@
+export const SET_CONSUMER_LIST = 'SET_CUSTOMER_LIST'
