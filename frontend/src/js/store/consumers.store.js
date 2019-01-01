@@ -30,7 +30,7 @@ const mutations = {
 		Vue.set(state, 'list', consumers)
 	},
 	[types.SET_CONSUMER_TYPES] (state, consumer_types) {
-		Vue.set(state, 'types', consumer_types)
+		Vue.set(state, 'consumer_types', consumer_types)
 	}
 }
 
