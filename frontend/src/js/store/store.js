@@ -1,5 +1,5 @@
-import consumer from 'js/store/consumer.store'
+import consumers from 'js/store/consumers.store'
 
 export default {
-	consumer
+	consumers
 }
