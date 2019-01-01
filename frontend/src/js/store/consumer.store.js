@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import fetch from 'js/fetch'
 import * as types from 'store/mutation_types'
 
