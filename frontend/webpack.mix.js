@@ -19,6 +19,7 @@ mix
 			js: path.resolve(__dirname, './src/js'),
 			components: path.resolve(__dirname, './src/js/views/components'),
 			pages: path.resolve(__dirname, './src/js/views/pages'),
+			mixins: path.resolve(__dirname, './src/js/views/mixins'),
 			store: path.resolve(__dirname, './src/js/store'),
 		}
 	}
