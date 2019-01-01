@@ -8,11 +8,22 @@ const state = {
 	consumer_types: []
 }
 
+
 const getters = {
 }
 
+
 const actions = {
+	async getAll ({ commit }, consumers) {
+		const data = await fetch.get('/consumers')
+		// Pluck unique consumer_type's from each consumer
+		const consumer_types = _.map(data, 'consumer_type')
+		commit(types.SET_CONSUMER_LIST, data)
+		commit(types.SET_CONSUMER_TYPES, consumer_types)
+		return data
+	}
 }
+
 
 const mutations = {
 	[types.SET_CONSUMER_LIST] (state, consumers) {
