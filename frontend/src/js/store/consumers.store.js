@@ -17,7 +17,12 @@ const actions = {
 	async getAll ({ commit }, consumers) {
 		const data = await fetch.get('/consumers')
 		// Pluck unique consumer_type's from each consumer
-		const consumer_types = _.uniq(_.map(data, 'consumer_type'))
+		const consumer_types = _.uniqBy(_.map(data, item => {
+			return {
+				text: _.startCase(item.consumer_type),
+				value: item.consumer_type
+			}
+		}), 'value')
 		commit(types.SET_CONSUMER_LIST, data)
 		commit(types.SET_CONSUMER_TYPES, consumer_types)
 		return data
