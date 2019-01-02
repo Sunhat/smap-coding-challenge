@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import DeleteConsumerModal from 'components/Consumers/DeleteConsumerModal'
 import _ from 'lodash'
 export default {
