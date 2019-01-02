@@ -1,35 +1,51 @@
 <template>
-	<sui-container>
+	<div v-if="filteredConsumerList.length > 0">
+		<delete-consumer-modal ref="deleteModal" :id="selectedConsumerId" />
 		<sui-dropdown
 			placeholder="Filter By..."
 			selection
 			:options="consumerTypeOptions"
 			v-model="selectedType"
 		/>
-		<sui-table>
-			<thead>
-				<tr>
-					<th>Customer Name</th>
-					<th>Voltage</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="(consumer, index) in filteredConsumerList" :key="index">
-					<td>{{ consumer.name }}</td>
-					<td>{{ startCase(consumer.consumer_type) }}</td>
-				</tr>
-			</tbody>
+		<sui-table striped color="olive">
+			<sui-table-header>
+				<sui-table-row>
+					<sui-table-header-cell>Customer Name</sui-table-header-cell>
+					<sui-table-header-cell>Voltage</sui-table-header-cell>
+					<sui-table-header-cell />
+					<sui-table-header-cell />
+				</sui-table-row>
+			</sui-table-header>
+			<sui-table-body>
+				<sui-table-row v-for="(consumer, index) in filteredConsumerList" :key="index">
+					<sui-table-cell>
+						{{ consumer.name }}
+					</sui-table-cell>
+					<sui-table-cell>
+						{{ startCase(consumer.consumer_type) }}
+					</sui-table-cell>
+					<sui-table-cell collapsing>
+						<sui-button tag="a"positive icon="eye" @click.native="viewConsumer" />
+					</sui-table-cell>
+					<sui-table-cell collapsing>
+						<sui-button negative icon="trash" @click.native="deleteConsumer(consumer.id)" />
+					</sui-table-cell>
+				</sui-table-row>
+			</sui-table-body>
 		</sui-table>
-	</sui-container>
+	</div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import DeleteConsumerModal from 'components/Consumers/DeleteConsumerModal'
 import _ from 'lodash'
 export default {
+	components: { DeleteConsumerModal },
 	data () {
 		return {
 			selectedType: '',
+			selectedConsumerId: null,
 		}
 	},
 	computed: {
@@ -50,6 +66,10 @@ export default {
 	methods: {
 		startCase (string) {
 			return _.startCase(string)
+		},
+		deleteConsumer (id) {
+			this.selectedConsumerId = id
+			this.$refs.deleteModal.toggle()
 		},
 	},
 	created () {

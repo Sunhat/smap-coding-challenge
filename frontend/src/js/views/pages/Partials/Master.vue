@@ -6,6 +6,7 @@
 		<sui-container>
 			<router-view></router-view>
 		</sui-container>
+		<footer></footer>
 	</div>
 </template>
 
