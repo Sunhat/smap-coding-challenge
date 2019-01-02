@@ -3,7 +3,9 @@
 		<loading-screen />
 		<alert/>
 		<heading />
+		<sui-container>
 			<router-view></router-view>
+		</sui-container>
 	</div>
 </template>
 
