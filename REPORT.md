@@ -33,7 +33,7 @@ The file gets created on `npm run watch` and deleted on `npm run production`
 
 
 ### Linting
-I haven't used a Linting tool as I wanted to get this done quick.
+I haven't used a Linting tool as I wanted to get this done quickly.
 If I did have more time, I would use one that would block compilation unless code is correct
 
 
@@ -55,7 +55,7 @@ I do have a passion for creating intuitive UIs, although this doesn't feel evide
 as I feel there's not too much to consider. e.g. login, menus, etc
 
 I've used Semantic UI for layout/design. On a production project I would use or create a theme 
-to get of the frameworky feeling.
+to get rid of the frameworky feeling.
 
 
 ### VueX Store
@@ -84,7 +84,9 @@ If I had more time, I'd contribute to the repo and add this feature.
 
 
 ### Delete Consumer
-Deleting a Consumer appears to give a 405 error method 'DELETE' not allowed.
-I'm not sure 
+Delete consumer is done via a modal, with error checking, loading screen, and an alert system in place.
 
+If the API request is successful, the consumer will be removed from the list of consumers
+
+### View consumer
 
