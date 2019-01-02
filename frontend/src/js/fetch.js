@@ -14,19 +14,19 @@ const fetch = {
     }
   }),
 
-  post (endpoint, data, callback) {
+  post (endpoint, data) {
     return this.httpInstance.post(endpoint, data).then(response => {
       return response.data
     })
   },
 
-  patch (endpoint, data, callback) {
+  patch (endpoint, data) {
     return this.httpInstance.patch(endpoint, data).then(response => {
       return response.data
     })
   },
 
-  get (endpoint, data, callback) {
+  get (endpoint, data) {
     return this.httpInstance.get(endpoint, {params: data}).then(response => {
       return response.data
     })
