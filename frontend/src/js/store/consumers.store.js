@@ -25,6 +25,24 @@ const actions = {
 		commit(types.SET_CONSUMER_LIST, data)
 		commit(types.SET_CONSUMER_TYPES, consumer_types)
 		return data
+	/**
+	 * Destroy consumer by id
+	 * @param {*} context 
+	 * @param {*} id 
+	 */
+	async destroy ({ commit, state, dispatch }, id) {
+		try {
+			commit('app/' + types.INCREMENT_LOADING, null, { root: true })
+			const data = await fetch.delete(`/consumer/${id}`)
+			const consumer = state.list.find(item => item.id == id)
+			commit(types.DELETE_CONSUMER, consumer)
+			dispatch('alert/success', `${consumer.name} deleted!`, { root: true })
+		} catch (e) {
+			console.log(e)
+			dispatch('alert/error', 'Failed to delete', { root: true })
+		} finally {
+			commit('app/' + types.DECREMENT_LOADING, null, { root: true })
+		}
 	}
 }
 
@@ -35,6 +53,9 @@ const mutations = {
 	},
 	[types.SET_CONSUMER_TYPES] (state, consumer_types) {
 		Vue.set(state, 'consumer_types', consumer_types)
+	},
+	[types.DELETE_CONSUMER] (state, consumer) {
+		Vue.delete(state.list, state.list.indexOf(consumer))
 	}
 }
 
