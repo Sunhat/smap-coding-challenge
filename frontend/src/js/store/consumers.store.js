@@ -4,13 +4,12 @@ import fetch from 'js/fetch'
 import * as types from 'store/mutation_types'
 
 const state = {
-	list: [],
-	consumer_types: []
+	list: [], // List of consumers
+	consumer_types: [], // List of consumer_types (voltage types)
 }
 
 
-const getters = {
-}
+const getters = { }
 
 
 const actions = {
