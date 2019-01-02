@@ -13,18 +13,32 @@ const getters = { }
 
 
 const actions = {
-	async getAll ({ commit }, consumers) {
-		const data = await fetch.get('/consumers')
-		// Pluck unique consumer_type's from each consumer
-		const consumer_types = _.uniqBy(_.map(data, item => {
-			return {
-				text: _.startCase(item.consumer_type),
-				value: item.consumer_type
-			}
-		}), 'value')
-		commit(types.SET_CONSUMER_LIST, data)
-		commit(types.SET_CONSUMER_TYPES, consumer_types)
-		return data
+	/**
+	 * Fetch all Consumers
+	 * Create list of consumer_types based on fetched data
+	 * @param {Object} context
+	 */
+	async getAll ({ commit, dispatch }) {
+		try {
+			commit('app/' + types.INCREMENT_LOADING, null, { root: true })
+			const data = await fetch.get('/consumers')
+			// Pluck unique consumer_type's from each consumer
+			const consumer_types = _.uniqBy(_.map(data, item => {
+				return {
+					text: _.startCase(item.consumer_type),
+					value: item.consumer_type
+				}
+			}), 'value')
+			// Commit Initial Consumer data
+			commit(types.SET_CONSUMER_LIST, data)
+			commit(types.SET_CONSUMER_TYPES, consumer_types)
+			return data
+		} catch {
+			dispatch('alert/error', 'Failed to load consumer list')
+		} finally {
+			commit('app/' + types.DECREMENT_LOADING, null, { root: true })
+		}
+	},
 	/**
 	 * Destroy consumer by id
 	 * @param {*} context 
