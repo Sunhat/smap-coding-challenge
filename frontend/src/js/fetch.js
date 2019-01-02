@@ -25,6 +25,12 @@ const fetch = {
       return response.data
     })
   },
+  
+  delete (endpoint, data) {
+	return this.httpInstance.delete(endpoint, data).then(response => {
+		return response.data
+	})
+  },
 
   get (endpoint, data) {
     return this.httpInstance.get(endpoint, {params: data}).then(response => {
