@@ -25,7 +25,7 @@
 						{{ startCase(consumer.consumer_type) }}
 					</sui-table-cell>
 					<sui-table-cell collapsing>
-						<sui-button tag="a"positive icon="eye" @click.native="viewConsumer" />
+						<router-link is="sui-button" icon="eye" :to="viewConsumer(consumer.id)" positive />
 					</sui-table-cell>
 					<sui-table-cell collapsing>
 						<sui-button negative icon="trash" @click.native="deleteConsumer(consumer.id)" />
@@ -65,6 +65,12 @@ export default {
 	methods: {
 		startCase (string) {
 			return _.startCase(string)
+		},
+		viewConsumer (id) {
+			return {
+				name: 'show_consumer',
+				params: { id }
+			}
 		},
 		deleteConsumer (id) {
 			this.selectedConsumerId = id
