@@ -1,7 +1,7 @@
 // Lazy Loaders
-const Home = () => import('pages/Home.vue')
+const Consumers = () => import('pages/Consumers.vue')
 
 
 export default [
-	{ path: '/', component: Home },
+	{ path: '/', component: Consumers },
 ]
