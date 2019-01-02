@@ -18,7 +18,7 @@ from django.contrib import admin
 from app import views as app_views
 
 urlpatterns = [
-    url(r'^$', app_views.index),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
+    url(r'^.*$', app_views.index),
 ]
