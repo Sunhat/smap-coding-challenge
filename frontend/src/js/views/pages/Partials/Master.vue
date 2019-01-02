@@ -6,6 +6,8 @@
 </template>
 import LoadingScreen from 'components/LoadingScreen'
 export default {
+	components: {
 		LoadingScreen,
+	},
 }
 </script>
