@@ -52,13 +52,19 @@ export default {
 		toggle () {
 			this.open = !this.open
 		},
+		escKeyListener (e) {
+			console.log('pressed')
+			if(e.key === 'Escape') {
+				this.toggle()
+			}
+		}
 	},
 	watch: {
 		open (to, from) {
 			if(to) {
-				window.addEventListener('keypress', this.escKeyListener)
+				window.addEventListener('keydown', this.escKeyListener)
 			} else {
-				window.removeEventListener('keypress', this.escKeyListener)
+				window.removeEventListener('keydown', this.escKeyListener)
 			}
 		}
 	}
