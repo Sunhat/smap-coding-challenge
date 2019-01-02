@@ -7,7 +7,7 @@ import SuiVue from 'semantic-ui-vue'
 import routes from './routes'
 
 // Components
-import Master from 'pages/Master'
+import Master from 'pages/Partials/Master'
 
 // VueX Stores
 import storeModules from './store/store'
