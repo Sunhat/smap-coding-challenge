@@ -120,5 +120,4 @@ The rest of the Vue project was relatively simple to build out.
 - Use mutation_types on alert system
 - tests
 
-## Other
 
