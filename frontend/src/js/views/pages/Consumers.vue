@@ -60,7 +60,7 @@ export default {
 		filteredConsumerList () {
 			if(this.selectedType.length === 0) return this.$store.state.consumers.list
 			return this.$store.state.consumers.list.filter(c => c.consumer_type === this.selectedType)
-		}
+		},
 	},
 	methods: {
 		startCase (string) {
@@ -68,7 +68,7 @@ export default {
 		},
 		viewConsumer (id) {
 			return {
-				name: 'show_consumer',
+				name: 'show_consumer_stats',
 				params: { id }
 			}
 		},

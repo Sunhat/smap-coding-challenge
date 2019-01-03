@@ -1,6 +1,6 @@
 // Lazy Loaders
 const Consumers = () => import('pages/Consumers.vue')
-const Consumer = () => import('pages/Consumer.vue')
+const ConsumerStatistics = () => import('pages/ConsumerStatistics.vue')
 
 
 export default [
@@ -9,8 +9,8 @@ export default [
 		path: '/', component: Consumers
 	},
 	{
-		name: 'show_consumer',
+		name: 'show_consumer_stats',
 		path: '/consumer/:id',
-		component: Consumer
+		component: ConsumerStatistics
 	}
 ]

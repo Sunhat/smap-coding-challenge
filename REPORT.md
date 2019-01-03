@@ -24,28 +24,26 @@ The file gets created on `npm run watch` and deleted on `npm run production`
 
 # Project
 
-### Dependancies
+### Dependancies & Tech
 - axios for API requests
+- Vue
 - VueX for storing data in an neat and effective manner 
 - VueRouter to enable easy SPA
 - lodash for some nice helper functions, larger applications would do better with this
 - Semantic UI Vue & Sementic UI CSS
+- C3 for charts instead of D3
+- Sass/Scss
+- ES6, Lazy Loading imports
 
 
 ### Linting
-I haven't used a Linting tool as I wanted to get this done quickly.
+I haven't used a Linting tool, but would usually have one set up for a production project
 If I did have more time, I would use one that would block compilation unless code is correct
 
 
 ### Naming conventions
 Naming conventions aren't perfect, but I've learned Vue entirely by myself.
 In a team, I would be open for any idea/changes that ensure consistency throughout the project.
-
-
-### Main Tech
-- ES6, Lazy Loading imports
-- Vue
-- Sass/Scss
 
 
 ### Design & Layout
@@ -88,5 +86,38 @@ Delete consumer is done via a modal, with error checking, loading screen, and an
 
 If the API request is successful, the consumer will be removed from the list of consumers
 
-### View consumer
+
+
+### Consumer Stats
+This is the first time I've ever had to create graphs/charts. I decided to use C3 instead of D3.
+It looks much quicker & easier to use, however the documentation lacks some clarity on x/y axis data
+
+I didn't format the date as I've run out of time, and couldn't quite understand the documentation.
+
+I'm displaying the data with checkboxes you can filter the dates.
+
+
+# Final Report
+Unfortunately, I didn't get much time over the weekend to work on this,
+and only really got to work on this Tuesday afternoon/evening.
+
+The Chart was a challenge for me, but that just means learning the API more.
+
+
+The rest of the Vue project was relatively simple to build out.
+
+## If I had more time
+- Make Chart responsive with aspect ratio or horizontal scrolling
+- Making hover state chart data better looking
+- Add Consumer
+- Maybe store `selectedConsumerId` and create a getter for `selectedConsumer` instead
+- Add theme/create theme
+- `<transition></transition>` For pages
+- Drop down menu for consumers on the ConsumerStatistics Page
+- Restructure folders/files a little. 
+  - Components/Pages got confusing/annoying
+  - Move `Vue.use(VueX)` and `new VueX.store` to store file and do the same wih routes
+- tests
+
+## Other
 

@@ -53,7 +53,6 @@ export default {
 			this.open = !this.open
 		},
 		escKeyListener (e) {
-			console.log('pressed')
 			if(e.key === 'Escape') {
 				this.toggle()
 			}
