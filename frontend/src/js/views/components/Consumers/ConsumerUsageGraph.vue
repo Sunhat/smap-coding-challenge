@@ -58,6 +58,11 @@ export default {
 				...consumer.stats.filter(item => this.checkedYears.indexOf(String(item.year)) > -1)
 			]
 
+			/*
+			 * Read: Array.prototype.reduce documentation
+			 * Creates Object of Objects, keyed by month.
+			 * This merges the same months of every year together.
+			 */
 			stats = stats.reduce((accumulator , current) => {
 				if(!accumulator[current.month])
 					accumulator[current.month] = { total_cost: 0, total_bill: 0, month: 0, consumption: 0, calculated_profit: 0 }
@@ -69,7 +74,7 @@ export default {
 				accumulator[current.month].date = new Date(current.year, current.month - 1)
 				return accumulator
 			}, {})
-
+			// Convert Object of Objects to Array of Objects
 			stats = Object.keys(stats).map(x => stats[x])
 			return stats
 		}
