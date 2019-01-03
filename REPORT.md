@@ -130,3 +130,10 @@ The rest of the Vue project was relatively simple to build out.
 - tests
 
 
+## Browsers tested
+This was built and tested in the latest version Chrome.
+
+Upon testing FireFox, there appears to be an issue loading the consumer list, which I will fix soon
+
+
+
