@@ -23,7 +23,7 @@ const actions = {
 	async getAll ({ commit, dispatch }) {
 		try {
 			commit('app/' + types.INCREMENT_LOADING, null, { root: true })
-			const data = await fetch.get('/consumers')
+			const data = await fetch.get('/consumers/')
 			// Pluck unique consumer_type's from each consumer
 			const consumer_types = _.uniqBy(_.map(data, item => {
 				return {
@@ -50,7 +50,7 @@ const actions = {
 	async destroy ({ commit, state, dispatch }, id) {
 		try {
 			commit('app/' + types.INCREMENT_LOADING, null, { root: true })
-			const data = await fetch.delete(`/consumer/${id}`)
+			const data = await fetch.delete(`/consumer/${id}/`)
 			const consumer = state.list.find(item => item.id == id)
 			commit(types.DELETE_CONSUMER, consumer)
 			dispatch('alert/success', `${consumer.name} deleted!`, { root: true })
@@ -68,7 +68,7 @@ const actions = {
 	async find ({ commit, state, dispatch }, id) {
 		try {
 			commit('app/' + types.INCREMENT_LOADING, null, { root: true })
-			const data = await fetch.get(`/consumer/${id}`)
+			const data = await fetch.get(`/consumer/${id}/`)
 			commit(types.SET_CONSUMER_LIST, [data])
 		} catch (e) {
 			dispatch('alert/error', 'Could not get Consumer', { root: true })
