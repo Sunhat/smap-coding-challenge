@@ -117,6 +117,7 @@ The rest of the Vue project was relatively simple to build out.
 - Restructure folders/files a little. 
   - Components/Pages got confusing/annoying
   - Move `Vue.use(VueX)` and `new VueX.store` to store file and do the same wih routes
+- Use mutation_types on alert system
 - tests
 
 ## Other
