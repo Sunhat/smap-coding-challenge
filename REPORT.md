@@ -1,3 +1,11 @@
+# Getting started
+
+`cd frontend`
+
+`npm install`
+
+`npm watch`
+
 # Webpack
 After following the instructions to install requirements the backend project,
 I decided to use webpack, but to save time on configuration, I used Laravel Mix v2 (latest is v4), copied over from a personal Vue/Django project. I do have experience with writing Webpack 4 configs, although I've got nothing for this setup.
@@ -120,5 +128,12 @@ The rest of the Vue project was relatively simple to build out.
 - Use mutation_types on alert system
 - Reconsider how/when data is cached
 - tests
+
+
+## Browsers tested
+This was built and tested in the latest version Chrome.
+
+Upon testing FireFox, there appears to be an issue loading the consumer list, which I will fix soon
+
 
 
