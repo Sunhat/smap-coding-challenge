@@ -62,7 +62,7 @@ VueX has become the default way for storing data for me.
 On occasion, I have used the EventBus method to store/retrieve data. When data gets big,
 it's clear a dedicated data store is required.
 
-While this is a test project, the concept is large data management, and VueX isn't hardly any trouble to implement.
+While this is a test project, the concept is large data management, and VueX is hardly any trouble to implement.
 
 
 ### Alert system
