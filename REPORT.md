@@ -113,11 +113,12 @@ The rest of the Vue project was relatively simple to build out.
 - Maybe store `selectedConsumerId` and create a getter for `selectedConsumer` instead
 - Add theme/create theme
 - `<transition></transition>` For pages
-- Drop down menu for consumers on the ConsumerStatistics Page
+- Drop down menu for all consumers on the ConsumerStatistics Page
 - Restructure folders/files a little. 
   - Components/Pages got confusing/annoying
   - Move `Vue.use(VueX)` and `new VueX.store` to store file and do the same wih routes
 - Use mutation_types on alert system
+- Reconsider how/when data is cached
 - tests
 
 
