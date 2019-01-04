@@ -49,16 +49,15 @@ class ConsumerDetail(APIView):
         return Response(serializer.data)
 
     def post(self, request, consumer_id=None):
-        name = request.POST.get('name')
-        consumer_type = request.POST.get('consumer_type')
-        print(name, consumer_type)
+        name = request.data.get('name')
+        consumer_type = request.data.get('consumer_type')
 
         consumer = Consumer.objects.create(name=name, consumer_type=consumer_type)
 
         if consumer:
-            return Response(dict(success=True))
+            return Response(ConsumerSerializer(consumer).data)
 
-        return Response(dict(sucess=False, message='Consumer was not created.'))
+        return Response(dict(success=False, message='Consumer was not created.'))
 
     def delete(self, request, consumer_id):
         consumer = Consumer.objects.get(pk=consumer_id)

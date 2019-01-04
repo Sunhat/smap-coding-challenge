@@ -1,36 +1,53 @@
 <template>
 	<div class="chart">
-		<span v-for="(y, i) in years" :key="i">
-			{{ y }}
-			<input type="checkbox" :value="y" v-model="checkedYears">
+		<span class="years" v-for="(y, i) in years" :key="i" >
+			<sui-checkbox :label="y" :value="y" toggle v-model="checked_years" />
 		</span>
-	    <vue-c3 :handler="handler"></vue-c3>	
+		<graph :config="chart_config" :data="graphStats" />
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
-import VueC3 from 'vue-c3'
+import Graph from 'components/Graph'
+import moment from 'moment'
 export default {
-	components: { VueC3 },
+	components: { Graph },
 	data () {
 		return {
 			handler: new Vue(),
 			years: ['2016', '2017'],
-			checkedYears: ['2016', '2017'],
-			months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-			chartConfig: {
-				type: 'bar',
-				xFormat: '%Y%m%d',
-				keys: {
+			checked_years: ['2016', '2017'],
+			graph_stats_object: {
+				total_cost: 0,
+				total_bill: 0,
+				month: 0,
+				consumption: 0,
+				calculated_profit: 0,
+				date: null,
+			},
+			chart_config: {
+				data: {
+					type: 'bar',
 					x: 'date',
-					value: ['total_cost', 'total_bill', 'consumption', 'calculated_profit']
+					xFormat: '%Y-%m-%d',
+					keys: {
+						x: 'date',
+						xFormat: '%Y-%m-%d',
+						value: ['total_cost', 'total_bill', 'consumption', 'calculated_profit']
+					},
+					names: {
+						'total_cost': 'Total Cost',
+						'total_bill': 'Total Bill',
+						'consumption': 'Consumpton',
+						'calculated_profit': 'Calculated Profit'      
+					},
 				},
 				axis: {
 					x: {
 						type: 'timeseries',
-						tick: {
-							format (x) { return this.months[x.getMonth()]; }
+			            tick: {
+							format: '%b'
 						}
 					}
 				}
@@ -44,63 +61,80 @@ export default {
 		}
 	},
 	computed: {
-		chartData () {
-			return {
-				data: {
-					...this.chartConfig,
-					json: [ ...this.stats ]
-				}
-			}
+		/**
+		 * Template logic
+		 */
+		displayGraph () {
+			return this.checked_years.length > 0
 		},
-		stats () {
+		/**
+		 * filter stats by year
+		 */
+		filteredStats () {
 			const consumer = this.$store.state.consumers.list.find(item => item.id == this.id)
-			let stats = [ 
-				...consumer.stats.filter(item => this.checkedYears.indexOf(String(item.year)) > -1)
-			]
-
-			/*
-			 * Read: Array.prototype.reduce documentation
-			 * Creates Object of Objects, keyed by month.
-			 * This merges the same months of every year together.
-			 */
-			stats = stats.reduce((accumulator , current) => {
-				if(!accumulator[current.month])
-					accumulator[current.month] = { total_cost: 0, total_bill: 0, month: 0, consumption: 0, calculated_profit: 0 }
-				accumulator[current.month].total_cost += current.total_cost
-				accumulator[current.month].total_bill += current.total_bill
-				accumulator[current.month].consumption += current.consumption
-				accumulator[current.month].calculated_profit += current.consumption - current.total_bill
-				accumulator[current.month].month = parseInt(current.month)
-				accumulator[current.month].date = new Date(current.year, current.month - 1)
-				return accumulator
-			}, {})
-			// Convert Object of Objects to Array of Objects
-			stats = Object.keys(stats).map(x => stats[x])
-			return stats
+			return consumer.stats.filter(item => this.checked_years.indexOf(String(item.year)) > -1)
+		},
+		/**
+		 * Processed statistics for the graph
+		 */
+		graphStats () {
+			return this.accumulateStats(this.filteredStats)
 		}
 	},
 	methods: {
-		setChartData() {
-			this.handler.$emit('init', this.chartData)
+		/**
+		 * Creates Object of Objects, keyed by month for the statistics
+		 * This merges the same months of every year together.
+		 * @param {Object} stats
+		 */
+		accumulateStats (stats) {
+			const result = stats.reduce((accumulator , current) => {
+				// If this is the first time the month has appeared, create it
+				if(!accumulator[current.month])
+					accumulator[current.month] = { ...this.graph_stats_object }
+				// For each key, add its value to the accumulator value
+				for(let key in this.graph_stats_object) {
+					accumulator[current.month][key] = this.calculateStat(accumulator[current.month], current, key)
+				}
+				return accumulator
+			}, {})
+			// Convert Object of Objects to Array of Objects
+			return Object.keys(result).map(x => result[x])
+		},
+		/**
+		 * Some stats must be calculated on the front-end
+		 * This will calculate an individual stat. Some stats are additional stats
+		 * @param {Object} accumulator Object of a month inside of the accumulator
+		 * @param {Object} stats Object of set of stats - Should come from current Array.reducer param
+		 * @param {String} stat_to_calculate String for the current stat to be calculated
+		 */
+		calculateStat (accumulator, stats, stat_key) {
+			if(stat_key === 'calculated_profit')
+				return accumulator[stat_key] + (stats.consumption - stats.total_bill)
+			if(stat_key === 'month')
+				return parseInt(stats[stat_key])
+			if(stat_key === 'date')
+				return moment(new Date(stats.year, stats.month - 1)).format('YYYY-MM-DD')
+			return this.fixDecimal(accumulator[stat_key] + stats[stat_key])
+		},
+		/**
+		 * Fix to decimal place
+		 * @param {number}
+		 */
+		fixDecimal(number) {
+			return parseFloat(number.toFixed(2))
 		}
-	},
-	watch: {
-		checkedYears () {
-			this.setChartData()
-		}
-	},
-	mounted () {
-		this.setChartData()
 	}
 }
 </script>
 
-<style>
+<style scoped>
 .chart {
 	text-align: center;
 	min-height: 400px;
 }
-.chart path {
-    fill: none;
+.years {
+	display: inline-block;
+	padding: 0 20px;
 }
 </style>

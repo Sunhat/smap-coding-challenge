@@ -114,26 +114,24 @@ The Chart was a challenge for me, but that just means learning the API more.
 
 The rest of the Vue project was relatively simple to build out.
 
-## If I had more time
+## Other ideas
 - Make Chart responsive with aspect ratio or horizontal scrolling
-- Making hover state chart data better looking
-- Add Consumer
-- Maybe store `selectedConsumerId` and create a getter for `selectedConsumer` instead
 - Add theme/create theme
-- `<transition></transition>` For pages
-- Drop down menu for all consumers on the ConsumerStatistics Page
-- Restructure folders/files a little. 
-  - Components/Pages got confusing/annoying
-  - Move `Vue.use(VueX)` and `new VueX.store` to store file and do the same wih routes
 - Use mutation_types on alert system
 - Reconsider how/when data is cached
+- Reconsider loading screen implementation (overlay vs inline)
 - tests
 
 
 ## Browsers tested
-This was built and tested in the latest version Chrome.
-
-Upon testing FireFox, there appears to be an issue loading the consumer list, which I will fix soon
+This was built and tested in the latest version Chrome & FireFox
 
 
 
+## API Calls
+I deicided against using all API Endpoints, but can see the reason for them.
+The decisions I've made would be made depending on circumstance and the views of the team.
+
+Maybe:
+- pull data for each year and save it, as opposed to all years at once
+- server-side caching

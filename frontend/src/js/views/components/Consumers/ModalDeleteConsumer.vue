@@ -1,27 +1,25 @@
 <template>
-	<div>
-		<sui-modal v-model="open">
-			<template v-if="consumer">
-				<sui-modal-header>Delete Consumer: {{ consumer.name }}</sui-modal-header>
-				<sui-modal-content>
-					<sui-modal-description>
-						<sui-message negative>
-						<sui-message-header>Are you sure you would like to delete this Consumer?</sui-message-header>
-							<p>This action is irreversable.</p>
-						</sui-message>
-					</sui-modal-description>
-				</sui-modal-content>
-				<sui-modal-actions>
-					<sui-button negative @click.native="deleteConsumer">
-						Yes, Delete {{ consumer.name }}!
-					</sui-button>
-					<sui-button color="blue" @click.native="toggle">
-						No, wait!
-					</sui-button>
-				</sui-modal-actions>
-			</template>
-		</sui-modal>
-	</div>
+	<sui-modal v-model="open">
+		<template v-if="consumer">
+			<sui-modal-header>Delete Consumer: {{ consumer.name }}</sui-modal-header>
+			<sui-modal-content>
+				<sui-modal-description>
+					<sui-message negative>
+					<sui-message-header>Are you sure you would like to delete this Consumer?</sui-message-header>
+						<p>This action is irreversable.</p>
+					</sui-message>
+				</sui-modal-description>
+			</sui-modal-content>
+			<sui-modal-actions>
+				<sui-button negative @click.native="deleteConsumer">
+					Yes, Delete {{ consumer.name }}!
+				</sui-button>
+				<sui-button color="blue" @click.native="toggle">
+					No, wait!
+				</sui-button>
+			</sui-modal-actions>
+		</template>
+	</sui-modal>
 </template>
 
 <script>

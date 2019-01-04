@@ -1,12 +1,14 @@
 <template>
 	<div v-if="filteredConsumerList.length > 0">
-		<delete-consumer-modal ref="deleteModal" :id="selectedConsumerId" />
+		<modal-delete-consumer ref="deleteModal" :id="selectedConsumerId" />
+		<modal-create-consumer ref="createModal" />
 		<sui-dropdown
 			placeholder="Filter By..."
 			selection
 			:options="consumerTypeOptions"
 			v-model="selectedType"
 		/>
+		<sui-button @click.native="$refs.createModal.toggle()" color="blue">Create New</sui-button>
 		<sui-table striped color="olive">
 			<sui-table-header>
 				<sui-table-row>
@@ -37,10 +39,11 @@
 </template>
 
 <script>
-import DeleteConsumerModal from 'components/Consumers/DeleteConsumerModal'
+import ModalDeleteConsumer from 'components/Consumers/ModalDeleteConsumer'
+import ModalCreateConsumer from 'components/Consumers/ModalCreateConsumer'
 import _ from 'lodash'
 export default {
-	components: { DeleteConsumerModal },
+	components: { ModalDeleteConsumer, ModalCreateConsumer },
 	data () {
 		return {
 			selectedType: '',
