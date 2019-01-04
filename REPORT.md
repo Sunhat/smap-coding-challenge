@@ -121,6 +121,8 @@ The rest of the Vue project was relatively simple to build out.
 - Reconsider how/when data is cached
 - Reconsider loading screen implementation (overlay vs inline)
 - tests
+- Django API could return 500 http status on fail, not just success=False
+- API responses could be more consistent
 
 
 ## Browsers tested
@@ -135,3 +137,11 @@ The decisions I've made would be made depending on circumstance and the views of
 Maybe:
 - pull data for each year and save it, as opposed to all years at once
 - server-side caching
+
+
+### axios.post
+I had issues with axios.post/django def post for create.
+I looked at another project of mine and found I had used request.body to deal with this issue, although I suspect there's a better way around this. I tried changing `Content-Type` to no avail.
+
+### Updating the api response
+I also updated the API response to return the created consumer. This way, I can add it to the list with its ID without making an additional API call.
