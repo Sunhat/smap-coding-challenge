@@ -123,6 +123,7 @@ The rest of the Vue project was relatively simple to build out.
 - tests
 - Django API could return 500 http status on fail, not just success=False
 - API responses could be more consistent
+- Multiple selections for deletion or even comparion viewing for stats
 
 
 ## Browsers tested
@@ -146,6 +147,11 @@ I looked at another project of mine and found I had used request.body to deal wi
 ### Updating the api response
 I also updated the API response to return the created consumer. This way, I can add it to the list with its ID without making an additional API call.
 
+### Loading screen 
+The loading screen uses increment/decrement so it can wait appropriate for VueX actions and their axios requests.
 
+Currently each action needs to individually increment/decrement the loading screen.
+Next week, I'd look at using this feature:
+https://github.com/vuejs/vuex/pull/1115#issuecomment-451520040
 
 ### Any questions or anything I've missed or left out, I'd be happy to answer
