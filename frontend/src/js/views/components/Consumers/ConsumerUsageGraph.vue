@@ -1,9 +1,12 @@
 <template>
 	<div class="chart">
-		<span class="years" v-for="(y, i) in years" :key="i" >
+		<span class="years" v-for="(y, i) in years" :key="i" v-if="displayYears">
 			<sui-checkbox :label="y" :value="y" toggle v-model="checked_years" />
 		</span>
-		<graph :config="chart_config" :data="graphStats" />
+		<graph :config="chart_config" :data="graphStats" v-if="displayGraph" />
+		<div v-if="!displayGraph">
+			No Data Available
+		</div>
 	</div>
 </template>
 
@@ -55,24 +58,26 @@ export default {
 		}
 	},
 	props: {
-		id: {
-			type: [ Number, String ],
+		consumer: {
+			type: [ Object ],
 			required: true
 		}
 	},
 	computed: {
-		/**
-		 * Template logic
-		 */
+		displayYears () {
+			return this.consumerStats && this.consumerStats.length > 0
+		},
 		displayGraph () {
-			return this.checked_years.length > 0
+			return this.checked_years.length > 0 && this.displayYears
+		},
+		consumerStats () {
+			return this.consumer.stats
 		},
 		/**
 		 * filter stats by year
 		 */
 		filteredStats () {
-			const consumer = this.$store.state.consumers.list.find(item => item.id == this.id)
-			return consumer.stats.filter(item => this.checked_years.indexOf(String(item.year)) > -1)
+			return this.consumerStats.filter(item => this.checked_years.indexOf(String(item.year)) > -1)
 		},
 		/**
 		 * Processed statistics for the graph
@@ -123,7 +128,19 @@ export default {
 		 */
 		fixDecimal(number) {
 			return parseFloat(number.toFixed(2))
+		},
+		loadStats () {
+			if(!this.consumerStats)
+				this.$store.dispatch('consumers/getStats', this.consumer.id)
+		},
+	},
+	watch: {
+		consumer () {
+			this.loadStats()
 		}
+	},
+	created () {
+		this.loadStats()
 	}
 }
 </script>

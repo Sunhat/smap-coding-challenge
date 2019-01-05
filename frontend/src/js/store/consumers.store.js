@@ -104,6 +104,8 @@ const actions = {
 	},
 	/**
 	 * Create a new consumer
+	 * @param {Object} context 
+	 * @param {Object} consumer 
 	 */
 	async create ({ commit, dispatch }, consumer) {
 		try {

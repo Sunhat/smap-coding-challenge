@@ -10,8 +10,8 @@
 				v-model="selectedConsumer"
 			/>
 		</div>
-		<sui-segment v-if="consumer && consumer.stats">
-			<consumer-usage-graph :id="consumer.id" />
+		<sui-segment v-if="consumer && !isLoading">
+			<consumer-usage-graph :consumer="consumer" />
 		</sui-segment>
 	</div>
 </template>
@@ -19,6 +19,7 @@
 <script>
 import ConsumerUsageGraph from 'components/Consumers/ConsumerUsageGraph'
 import _ from 'lodash'
+import { mapGetters } from 'vuex';
 export default {
 	components: { ConsumerUsageGraph },
 	data () {
@@ -27,6 +28,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters('app', ['isLoading']),
 		consumer () {
 			return this.$store.state.consumers.list.find(item => item.id == this.$route.params.id)
 		},
@@ -43,12 +45,9 @@ export default {
 		loadConsumers () {
 			this.$nextTick(() => {
 				this.selectedConsumer = parseInt(this.$route.params.id)
-				console.log(this.$route.params.id)
 			})
 			if(!this.consumer)
 				this.$store.dispatch('consumers/getAll')
-			if(!this.consumer || !this.consumer.stats)
-				this.$store.dispatch('consumers/getStats', this.$route.params.id)
 		}
 	},
 	watch: {
