@@ -12,15 +12,6 @@ Vue.use(VueX)
 
 // Boot the store
 export default new VueX.Store({
-	plugins: [(store) => {
-	  store.subscribeAction(async (action, state, done) => {
-		  console.log(done)
-			// console.log(store.commit(`app/${types.INCREMENT_LOADING}`))
-			console.log("Action Type: ", action.type)
-			console.log("Action Payload: ", action.payload)
-			console.log("Current State: ", state)
-	  })
-	}],
 	modules: {
 		consumers,
 		app,

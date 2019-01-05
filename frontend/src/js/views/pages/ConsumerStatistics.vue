@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div v-if="consumer">
+	<div v-if="consumer && !isLoading">
+		<div>
 			<sui-header class="name">{{ consumer.name }} - {{ consumer.consumer_type }}</sui-header>
 			<sui-dropdown
 				v-if="consumerMenu.length > 0"
@@ -10,8 +10,8 @@
 				v-model="selectedConsumer"
 			/>
 		</div>
-		<sui-segment v-if="consumer && !isLoading">
-			<consumer-usage-graph :consumer="consumer" />
+		<sui-segment>
+			<consumer-usage-graph :id="consumer.id" />
 		</sui-segment>
 	</div>
 </template>
@@ -19,7 +19,7 @@
 <script>
 import ConsumerUsageGraph from 'components/Consumers/ConsumerUsageGraph'
 import _ from 'lodash'
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
 	components: { ConsumerUsageGraph },
 	data () {
@@ -48,6 +48,8 @@ export default {
 			})
 			if(!this.consumer)
 				this.$store.dispatch('consumers/getAll')
+			if(!this.consumer || !this.consumer.stats)
+				this.$store.dispatch('consumers/getStats', this.$route.params.id)
 		}
 	},
 	watch: {
@@ -62,7 +64,6 @@ export default {
 		}
 	},
 	created () {
-		window.test = this
 		this.loadConsumers()
 	}
 }

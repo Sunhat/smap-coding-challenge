@@ -1,5 +1,6 @@
 <template>
 	<div class="chart">
+
 		<span class="years" v-for="(y, i) in years" :key="i" v-if="displayYears">
 			<sui-checkbox :label="y" :value="y" toggle v-model="checked_years" />
 		</span>
@@ -58,8 +59,8 @@ export default {
 		}
 	},
 	props: {
-		consumer: {
-			type: [ Object ],
+		id: {
+			type: [ Number, String ],
 			required: true
 		}
 	},
@@ -71,7 +72,7 @@ export default {
 			return this.checked_years.length > 0 && this.displayYears
 		},
 		consumerStats () {
-			return this.consumer.stats
+			return this.$store.state.consumers.list.find(item => item.id == this.id).stats
 		},
 		/**
 		 * filter stats by year
@@ -128,19 +129,13 @@ export default {
 		 */
 		fixDecimal(number) {
 			return parseFloat(number.toFixed(2))
-		},
-		loadStats () {
-			if(!this.consumerStats)
-				this.$store.dispatch('consumers/getStats', this.consumer.id)
-		},
-	},
-	watch: {
-		consumer () {
-			this.loadStats()
 		}
 	},
-	created () {
-		this.loadStats()
+	watch: {
+		id () {
+			if(!this.consumerStats)
+				this.$store.dispatch('consumers/getStats', this.id)
+		}
 	}
 }
 </script>

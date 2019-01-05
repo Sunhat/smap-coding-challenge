@@ -114,7 +114,6 @@ const actions = {
 			commit('SET_CONSUMER_LIST', [data])
 			dispatch('alert/success', 'New Consumer created', { root: true })
 		} catch (e) {
-			console.log(e)
 			dispatch('alert/error', 'Unable to create user. Please try again.', { root: true })
 		} finally {
 			commit(`app/${types.DECREMENT_LOADING}`, null, { root: true })

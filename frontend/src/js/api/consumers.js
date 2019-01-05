@@ -14,8 +14,6 @@ export default {
 		return fetch.delete(`/consumer/${id}/`)
 	},
 	create (consumer) {
-		console.log(consumer)
-		console.log('createconsumer')
 		return fetch.post(`/consumer/`, consumer)
 	}
 }
