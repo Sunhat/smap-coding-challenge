@@ -116,7 +116,7 @@ export default {
 		 */
 		calculateStat (accumulator, stats, stat_key) {
 			if(stat_key === 'calculated_profit')
-				return accumulator[stat_key] + (stats.consumption - stats.total_bill)
+				return this.fixDecimal(accumulator[stat_key] + (stats.consumption - stats.total_bill))
 			if(stat_key === 'month')
 				return parseInt(stats[stat_key])
 			if(stat_key === 'date')
